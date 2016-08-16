@@ -379,3 +379,9 @@ Can manage timeservers directly separate from ``config core``.
 Can access the tpm device /dev/tpm0.
 
 * Auto-Connect: no
+
+### fwupd
+
+Allow fwupd to update UEFI capsule format firmware.
+
+* Auto-Connect: no
