@@ -252,6 +252,12 @@ Can configure network firewalling giving privileged access to networking.
 
 * Auto-Connect: no
 
+### fwupd
+
+Can access snaps providing the fwupd interface which gives privileged access to update UEFI capsule format firmware.
+
+* Auto-Connect: no
+
 ### hardware-observe
 
 Can query hardware information from the system.
@@ -380,8 +386,4 @@ Can access the tpm device /dev/tpm0.
 
 * Auto-Connect: no
 
-### fwupd
 
-Allow fwupd to update UEFI capsule format firmware.
-
-* Auto-Connect: no

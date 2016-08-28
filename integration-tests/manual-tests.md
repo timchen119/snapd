@@ -247,16 +247,19 @@ $ snap remove bluez
 1. Ensure your BIOS support UEFI firmware upgrading via UEFI capsule format
 2. Install the uefi-fw-tools snap from the store
 3. Ensure the 'fwupd' interface is connected
+
+ $ sudo snap connect uefi-fw-tools:fwupdmgr uefi-fw-tools:fwupd
+
 4. Check if the device support UEFI firmware updates
 
- $ uefi-fw-tools.fwupdmgr get-devices
+ $ sudo uefi-fw-tools.fwupdmgr get-devices
 
 5. Get available UEFI firmware from the server
 
- $ uefi-fw-tools.fwupdmgr refresh
+ $ sudo uefi-fw-tools.fwupdmgr refresh
 
 6. Download firmware
 
- $ uefi-fw-tools.fwupdmgr update
+ $ sudo uefi-fw-tools.fwupdmgr update
 
 7. Reboot and ensure it start the upgrading process
