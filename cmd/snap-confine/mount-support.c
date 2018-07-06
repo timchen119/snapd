@@ -55,6 +55,19 @@
  * working directory across the pivot_root call.
  **/
 #define SC_VOID_DIR "/var/lib/snapd/void"
+#define SC_EFI_DIR "/boot/efi"
+
+void sc_mount_efi(const char *rootfs_dir)
+{
+	char dst[PATH_MAX] = { 0 };
+
+	// Only mount with UEFI host.
+	if (access(SC_EFI_DIR, F_OK) == 0) {
+		sc_must_snprintf(dst, sizeof dst, "%s/%s",
+				 rootfs_dir, SC_EFI_DIR);
+		sc_do_mount(SC_EFI_DIR, dst, NULL, MS_REC | MS_BIND, NULL);
+	}
+}
 
 // TODO: simplify this, after all it is just a tmpfs
 // TODO: fold this into bootstrap
@@ -452,6 +465,8 @@ static void sc_bootstrap_mount_namespace(const struct sc_mount_config *config)
 	// pre-pivot filesystem.
 	if (config->distro == SC_DISTRO_CLASSIC) {
 		sc_mount_nvidia_driver(scratch_dir);
+		// To access EFI system partition in classic (e.g. fwupd).
+		sc_mount_efi(scratch_dir);
 	}
 	// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	//                    pivot_root
@@ -626,7 +641,6 @@ void sc_populate_mount_ns(struct sc_apparmor *apparmor, int snap_update_ns_fd,
 			{"/var/tmp"},	// to get access to the other temporary directory
 			{"/run"},	// to get /run with sockets and what not
 			{"/lib/modules"},	// access to the modules of the running kernel
-			{"/boot/efi"},	// to access EFI system partition
 			{"/usr/src"},	// FIXME: move to SecurityMounts in system-trace interface
 			{"/var/log"},	// FIXME: move to SecurityMounts in log-observe interface
 #ifdef MERGED_USR

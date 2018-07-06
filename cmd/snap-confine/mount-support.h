@@ -21,6 +21,12 @@
 #include "apparmor-support.h"
 
 /**
+ * Make the EFI system partition from the classic distribution available in
+ * the snap execution environment.
+ **/
+void sc_mount_efi(const char *rootfs_dir);
+
+/**
  * Return a file descriptor referencing the snap-update-ns utility
  *
  * By calling this prior to changing the mount namespace, it is
