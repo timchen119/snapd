@@ -187,6 +187,9 @@
     mount options=(rw rbind) /usr/src/ -> /tmp/snap.rootfs_*/usr/src/,
     mount options=(rw rslave) -> /tmp/snap.rootfs_*/usr/src/,
 
+    mount options=(rw rbind) /boot/efi/ -> /tmp/snap.rootfs_*/boot/efi/,
+    mount options=(rw rslave) -> /tmp/snap.rootfs_*/boot/efi/,
+
     # allow making host snap-exec available inside base snaps
     mount options=(rw bind) @LIBEXECDIR@/ -> /tmp/snap.rootfs_*/usr/lib/snapd/,
     mount options=(rw slave) -> /tmp/snap.rootfs_*/usr/lib/snapd/,
